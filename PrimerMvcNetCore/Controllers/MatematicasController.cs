@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrimerMvcNetCore.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PrimerMvcNetCore.Controllers
 {
@@ -55,6 +57,42 @@ namespace PrimerMvcNetCore.Controllers
             int suma = n1 + n2;
             ViewData["MENSAJE"] = "La suma de " + n1 + " + " + n2 + " = " + suma;
             return View();
+        }
+
+        public IActionResult TablaMultiplicarSimple()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult TablaMultiplicarSimple(int numero)
+        {
+            List<int> resultados = new List<int>();
+            for (int i = 1; i <= 10; i++)
+            {
+                int operacion = numero * i;
+                resultados.Add(operacion);
+            }
+            return View(resultados);
+        }
+
+        public IActionResult TablaMultiplicarModel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult TablaMultiplicarModel(int numero)
+        {
+            List<FilaTablaMultiplicar> filas = new List<FilaTablaMultiplicar>();
+            for (int i = 1; i <= 10; i++)
+            {
+                FilaTablaMultiplicar fila = new FilaTablaMultiplicar();
+                fila.Operacion = numero + " * " + i;
+                fila.Resultado = numero * i;
+                filas.Add(fila);
+            }
+            return View(filas);
         }
     }
 }
